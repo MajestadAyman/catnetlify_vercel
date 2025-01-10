@@ -387,3 +387,9 @@ app.get('../app/(tabs)', verifyToken, (req, res) => {
 module.exports = app;
 
 console.log("FIREBASE_KEY_BASE64:", process.env.FIREBASE_KEY_BASE64);
+
+console.log('MONGODB_URI:', MONGODB_URI);
+
+if (!MONGODB_URI) {
+  throw new Error('La variable MONGODB_URI no está definida.');
+}
