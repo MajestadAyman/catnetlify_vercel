@@ -385,3 +385,5 @@ app.get('../app/(tabs)', verifyToken, (req, res) => {
 
 // Iniciar el servidor
 module.exports = app;
+
+console.log("FIREBASE_KEY_BASE64:", process.env.FIREBASE_KEY_BASE64);
