@@ -1,24 +1,19 @@
 const express = require('express');
 const admin = require('firebase-admin');
 const { MongoClient } = require('mongodb');
-const cors = require('cors'); // Importa cors
+const cors = require('cors');
 require('dotenv').config({ path: './url.env' });
 
 // Inicializar Firebase Admin
 admin.initializeApp({
-  credential: admin.credential.cert(require('./firebase/firebaseServiceAccountKey.json'))
+  credential: admin.credential.cert(require('./firebase/firebaseServiceAccountKey.json')),
 });
 
 const app = express();
-
-// Habilita CORS para todas las rutas
 app.use(cors());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// Aumentar el límite de tamaño para las solicitudes
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb', extended: true}));
-
-// Conexión a MongoDB
 const client = new MongoClient(process.env.MONGO_URL);
 let usersCollection;
 
@@ -28,7 +23,6 @@ async function connectDB() {
   usersCollection = db.collection('users');
   console.log('Conectado a MongoDB');
 }
-
 connectDB().catch(console.error);
 
 // Middleware para verificar token de Firebase
@@ -384,7 +378,4 @@ app.get('../app/(tabs)', verifyToken, (req, res) => {
 });
 
 // Iniciar el servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor ejecutándose en el puerto ${PORT}`);
-});
+module.exports = app;
