@@ -390,6 +390,11 @@ console.log("FIREBASE_KEY_BASE64:", process.env.FIREBASE_KEY_BASE64);
 
 console.log('MONGODB_URI:', MONGODB_URI);
 
+const MONGODB_URI = process.env.MONGODB_URI;
+
+// Log para depuración:
+console.log('MONGODB_URI:', MONGODB_URI);
+
 if (!MONGODB_URI) {
   throw new Error('La variable MONGODB_URI no está definida.');
 }
