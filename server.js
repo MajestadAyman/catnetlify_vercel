@@ -5,9 +5,15 @@ const cors = require('cors');
 require('dotenv').config({ path: './url.env' });
 
 // Inicializar Firebase Admin
-admin.initializeApp({
-  credential: admin.credential.cert(require('./firebase/firebaseServiceAccountKey.json')),
-});
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(
+      JSON.parse(Buffer.from(process.env.FIREBASE_KEY_BASE64, 'base64').toString('utf-8'))
+    ),
+  });
+} else {
+  admin.app(); // Usa la app existente
+}
 
 const app = express();
 app.use(cors());
