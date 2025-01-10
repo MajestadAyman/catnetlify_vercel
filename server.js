@@ -8,7 +8,7 @@ require('dotenv').config({ path: './url.env' });
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(
-      JSON.parse(Buffer.from(process.env.FIREBASE_KEY_BASE64, 'base64').toString('utf-8'))
+      require('./firebase/firebaseServiceAccountKey.json')
     ),
   });
 } else {
