@@ -388,11 +388,11 @@ module.exports = app;
 
 console.log("FIREBASE_KEY_BASE64:", process.env.FIREBASE_KEY_BASE64);
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGO_URL = process.env.MONGO_URL;
 
 // Log para verificar en los logs de Vercel:
-console.log('MONGODB_URI:', MONGODB_URI);
+console.log('MONGO_URL:', MONGO_URL);
 
-if (!MONGODB_URI) {
-  throw new Error('La variable de entorno MONGODB_URI no está definida.');
+if (!MONGO_URL) {
+  throw new Error('La variable de entorno MONGO_URL no está definida.');
 }
