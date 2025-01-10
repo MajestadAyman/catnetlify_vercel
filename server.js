@@ -23,6 +23,18 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 const client = new MongoClient(process.env.MONGO_URL);
 let usersCollection;
 
+console.log("FIREBASE_KEY_BASE64:", process.env.FIREBASE_KEY_BASE64);
+
+const MONGO_URL = process.env.MONGO_URL;
+
+// Log para verificar en los logs de Vercel:
+console.log('MONGO_URL:', MONGO_URL);
+
+if (!MONGO_URL) {
+  throw new Error('La variable de entorno MONGO_URL no está definida.');
+}
+
+
 async function connectDB() {
   await client.connect();
   const db = client.db('Carnetlify');
@@ -385,14 +397,3 @@ app.get('../app/(tabs)', verifyToken, (req, res) => {
 
 // Iniciar el servidor
 module.exports = app;
-
-console.log("FIREBASE_KEY_BASE64:", process.env.FIREBASE_KEY_BASE64);
-
-const MONGO_URL = process.env.MONGO_URL;
-
-// Log para verificar en los logs de Vercel:
-console.log('MONGO_URL:', MONGO_URL);
-
-if (!MONGO_URL) {
-  throw new Error('La variable de entorno MONGO_URL no está definida.');
-}
